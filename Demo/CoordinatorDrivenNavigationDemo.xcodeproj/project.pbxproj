@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E762C80B28B2AE27001502E7 /* CoordinatorDrivenNavigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E762C80528B2AE1A001502E7 /* CoordinatorDrivenNavigation.framework */; };
+		E762C80C28B2AE2C001502E7 /* CoordinatorDrivenNavigation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E762C80528B2AE1A001502E7 /* CoordinatorDrivenNavigation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E794DE0528B27F020063A0C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E794DE0428B27F020063A0C2 /* AppDelegate.swift */; };
 		E794DE0728B27F020063A0C2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E794DE0628B27F020063A0C2 /* SceneDelegate.swift */; };
 		E794DE0928B27F020063A0C2 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E794DE0828B27F020063A0C2 /* WelcomeViewController.swift */; };
 		E794DE0E28B27F030063A0C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E794DE0D28B27F030063A0C2 /* Assets.xcassets */; };
 		E794DE1128B27F030063A0C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E794DE0F28B27F030063A0C2 /* LaunchScreen.storyboard */; };
-		E794DE2528B27F370063A0C2 /* CoordinatorDrivenNavigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E794DE1F28B27F1E0063A0C2 /* CoordinatorDrivenNavigation.framework */; };
-		E794DE2628B27F370063A0C2 /* CoordinatorDrivenNavigation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E794DE1F28B27F1E0063A0C2 /* CoordinatorDrivenNavigation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E794DE3728B282610063A0C2 /* AppFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E794DE3628B282610063A0C2 /* AppFlowCoordinator.swift */; };
 		E794DE3F28B285F60063A0C2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E794DE3E28B285F60063A0C2 /* DetailViewController.swift */; };
 		E794DE4128B286100063A0C2 /* PresentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E794DE4028B286100063A0C2 /* PresentedViewController.swift */; };
@@ -22,25 +22,25 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		E794DE1E28B27F1E0063A0C2 /* PBXContainerItemProxy */ = {
+		E762C80428B2AE1A001502E7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = E794DE1928B27F1E0063A0C2 /* CoordinatorDrivenNavigation.xcodeproj */;
+			containerPortal = E762C7FF28B2AE1A001502E7 /* CoordinatorDrivenNavigation.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = E794DDDE28B27ED40063A0C2;
+			remoteGlobalIDString = E762C7BB28B2AD4A001502E7;
 			remoteInfo = CoordinatorDrivenNavigation;
 		};
-		E794DE2028B27F1E0063A0C2 /* PBXContainerItemProxy */ = {
+		E762C80628B2AE1A001502E7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = E794DE1928B27F1E0063A0C2 /* CoordinatorDrivenNavigation.xcodeproj */;
+			containerPortal = E762C7FF28B2AE1A001502E7 /* CoordinatorDrivenNavigation.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = E794DDE828B27ED50063A0C2;
+			remoteGlobalIDString = E762C7C528B2AD4A001502E7;
 			remoteInfo = CoordinatorDrivenNavigationTests;
 		};
-		E794DE2228B27F280063A0C2 /* PBXContainerItemProxy */ = {
+		E762C80828B2AE20001502E7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = E794DE1928B27F1E0063A0C2 /* CoordinatorDrivenNavigation.xcodeproj */;
+			containerPortal = E762C7FF28B2AE1A001502E7 /* CoordinatorDrivenNavigation.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = E794DDDD28B27ED40063A0C2;
+			remoteGlobalIDString = E762C7BA28B2AD4A001502E7;
 			remoteInfo = CoordinatorDrivenNavigation;
 		};
 /* End PBXContainerItemProxy section */
@@ -52,7 +52,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E794DE2628B27F370063A0C2 /* CoordinatorDrivenNavigation.framework in Embed Frameworks */,
+				E762C80C28B2AE2C001502E7 /* CoordinatorDrivenNavigation.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -60,6 +60,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E762C7FF28B2AE1A001502E7 /* CoordinatorDrivenNavigation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CoordinatorDrivenNavigation.xcodeproj; path = ../CoordinatorDrivenNavigation.xcodeproj; sourceTree = "<group>"; };
 		E794DE0128B27F020063A0C2 /* CoordinatorDrivenNavigationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoordinatorDrivenNavigationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E794DE0428B27F020063A0C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E794DE0628B27F020063A0C2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,7 +68,6 @@
 		E794DE0D28B27F030063A0C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E794DE1028B27F030063A0C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E794DE1228B27F030063A0C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E794DE1928B27F1E0063A0C2 /* CoordinatorDrivenNavigation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CoordinatorDrivenNavigation.xcodeproj; path = ../../CoordinatorDrivenNavigation/CoordinatorDrivenNavigation.xcodeproj; sourceTree = "<group>"; };
 		E794DE3628B282610063A0C2 /* AppFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowCoordinator.swift; sourceTree = "<group>"; };
 		E794DE3E28B285F60063A0C2 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		E794DE4028B286100063A0C2 /* PresentedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentedViewController.swift; sourceTree = "<group>"; };
@@ -80,19 +80,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E794DE2528B27F370063A0C2 /* CoordinatorDrivenNavigation.framework in Frameworks */,
+				E762C80B28B2AE27001502E7 /* CoordinatorDrivenNavigation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E762C80028B2AE1A001502E7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E762C80528B2AE1A001502E7 /* CoordinatorDrivenNavigation.framework */,
+				E762C80728B2AE1A001502E7 /* CoordinatorDrivenNavigationTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E762C80A28B2AE27001502E7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E794DDF828B27F020063A0C2 = {
 			isa = PBXGroup;
 			children = (
-				E794DE1828B27F110063A0C2 /* Frameworks */,
+				E762C7FF28B2AE1A001502E7 /* CoordinatorDrivenNavigation.xcodeproj */,
 				E794DE0328B27F020063A0C2 /* CoordinatorDrivenNavigationDemo */,
 				E794DE0228B27F020063A0C2 /* Products */,
+				E762C80A28B2AE27001502E7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -116,23 +133,6 @@
 				E794DE1228B27F030063A0C2 /* Info.plist */,
 			);
 			path = CoordinatorDrivenNavigationDemo;
-			sourceTree = "<group>";
-		};
-		E794DE1828B27F110063A0C2 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				E794DE1928B27F1E0063A0C2 /* CoordinatorDrivenNavigation.xcodeproj */,
-			);
-			path = Frameworks;
-			sourceTree = "<group>";
-		};
-		E794DE1A28B27F1E0063A0C2 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				E794DE1F28B27F1E0063A0C2 /* CoordinatorDrivenNavigation.framework */,
-				E794DE2128B27F1E0063A0C2 /* CoordinatorDrivenNavigationTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		E794DE2828B27F450063A0C2 /* Coordinators */ = {
@@ -170,7 +170,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				E794DE2328B27F280063A0C2 /* PBXTargetDependency */,
+				E762C80928B2AE20001502E7 /* PBXTargetDependency */,
 			);
 			name = CoordinatorDrivenNavigationDemo;
 			productName = CoordinatorDrivenNavigationDemo;
@@ -205,8 +205,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = E794DE1A28B27F1E0063A0C2 /* Products */;
-					ProjectRef = E794DE1928B27F1E0063A0C2 /* CoordinatorDrivenNavigation.xcodeproj */;
+					ProductGroup = E762C80028B2AE1A001502E7 /* Products */;
+					ProjectRef = E762C7FF28B2AE1A001502E7 /* CoordinatorDrivenNavigation.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -217,18 +217,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		E794DE1F28B27F1E0063A0C2 /* CoordinatorDrivenNavigation.framework */ = {
+		E762C80528B2AE1A001502E7 /* CoordinatorDrivenNavigation.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = CoordinatorDrivenNavigation.framework;
-			remoteRef = E794DE1E28B27F1E0063A0C2 /* PBXContainerItemProxy */;
+			remoteRef = E762C80428B2AE1A001502E7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		E794DE2128B27F1E0063A0C2 /* CoordinatorDrivenNavigationTests.xctest */ = {
+		E762C80728B2AE1A001502E7 /* CoordinatorDrivenNavigationTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = CoordinatorDrivenNavigationTests.xctest;
-			remoteRef = E794DE2028B27F1E0063A0C2 /* PBXContainerItemProxy */;
+			remoteRef = E762C80628B2AE1A001502E7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -264,10 +264,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		E794DE2328B27F280063A0C2 /* PBXTargetDependency */ = {
+		E762C80928B2AE20001502E7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = CoordinatorDrivenNavigation;
-			targetProxy = E794DE2228B27F280063A0C2 /* PBXContainerItemProxy */;
+			targetProxy = E762C80828B2AE20001502E7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
