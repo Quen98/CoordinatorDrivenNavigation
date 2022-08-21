@@ -7,7 +7,11 @@ that leverages the navigation workload outside the `UIViewController`
 It has been combined with a UIViewController/FlowStep association to simplyfy the navigation
 
 ## Installation
-For now, the best way to use the CoordinationDrivenNavigationFramework is to used it as submodule and link it in your Xcode project.
+### Using [Swift Package Manager](https://swift.org/package-manager/)
+
+1. Open your project with Xcode
+2. Select `File` > `Swift Packages` > `Add Package Dependency...`
+3. Put `https://github.com/Quen98/CoordinatorDrivenNavigation` in the search box and click `Next`
 
 ## Creating a coordinated driven navigation
 
