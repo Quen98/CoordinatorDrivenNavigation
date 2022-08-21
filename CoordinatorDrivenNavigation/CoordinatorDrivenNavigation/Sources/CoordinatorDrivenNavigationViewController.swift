@@ -26,7 +26,7 @@ fileprivate extension FlowCoordinator {
     }
 }
 
-public class CoordinatorDrivenNavigationViewController: UINavigationController {
+open class CoordinatorDrivenNavigationViewController: UINavigationController {
     private(set) var flowCoordinator: NavigationFlowCoordinator?
     private var dismissingViewController: UIViewController?
 
@@ -50,7 +50,7 @@ public class CoordinatorDrivenNavigationViewController: UINavigationController {
     }
 
     @available(*, unavailable)
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
