@@ -19,6 +19,11 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
     private var completion: ((_ coordinator: NavigationFlowCoordinator) -> Swift.Void)?
     private let isTopMainNavigationCoordinator: Bool
 
+    // Used for Units tests
+    public func flowStep(associatedTo viewController: ManagedViewControllerProvider) -> FlowStep? {
+        managedControllers.first { $0.managedController === viewController }?.flowStep
+    }
+
     public var currentStep: FlowStep? {
         steps.last
     }
@@ -133,7 +138,7 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
 
     // MARK: Return
     public func returnTo(step: FlowStep, animated: Bool = true) {
-        guard let managedViewControllerProvider = managedController(for: step),
+        guard let managedViewControllerProvider = lastManagedController(for: step),
               let viewController = managedViewControllerProvider.viewController() else { return }
 
         router?.pop(to: viewController, andShow: nil, animated: animated)
@@ -179,8 +184,21 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
     }
 
     // MARK: Handlers
-    private func managedController(for flowStep: FlowStep) -> ManagedViewControllerProvider? {
-        managedControllers.first { $0.flowStep == flowStep }?.managedController
+    private func lastManagedController(for flowStep: FlowStep,
+                                       includeLastElement: Bool = false) -> ManagedViewControllerProvider? {
+        var index = managedControllers.count - 1 // Ensuring the behavior stays the same when popping to a step with identical flowStep
+
+        if includeLastElement == false {
+            index -= 1
+        }
+
+        while index >= 0 {
+            if managedControllers[index].flowStep == flowStep {
+                return managedControllers[index].managedController
+            }
+            index -= 1
+        }
+        return nil
     }
 
     private func firstIndex(of controller: ManagedViewControllerProvider) -> Int? {

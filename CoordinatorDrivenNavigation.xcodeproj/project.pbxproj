@@ -15,6 +15,7 @@
 		E762C7F428B2ADC0001502E7 /* CoordinatorDrivenNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E762C7EE28B2ADC0001502E7 /* CoordinatorDrivenNavigationViewController.swift */; };
 		E762C7F528B2ADC0001502E7 /* NavigationFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E762C7EF28B2ADC0001502E7 /* NavigationFlowCoordinator.swift */; };
 		E762C7FD28B2AE09001502E7 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = E762C7FB28B2AE09001502E7 /* LICENSE */; };
+		EDF8A03B28B3E39A00AC9314 /* CoordinatorDrivenNavigationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E762C7F828B2ADC6001502E7 /* CoordinatorDrivenNavigationTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -247,6 +248,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDF8A03B28B3E39A00AC9314 /* CoordinatorDrivenNavigationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
