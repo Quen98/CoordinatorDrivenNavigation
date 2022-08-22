@@ -27,11 +27,6 @@ public class NavigationRouter: NavigationControllerRouter {
         navigationController?.viewControllers ?? []
     }
 
-    // Used for Units Tests
-    var steps: [FlowStep] {
-        navigationController?.viewControllers.compactMap { $0.flowStep } ?? []
-    }
-
     public init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
@@ -93,9 +88,5 @@ public class NavigationRouter: NavigationControllerRouter {
         guard let previousController = self.viewController(before: viewController) else { return }
 
         pop(to: previousController, andShow: nextViewController, animated: animated)
-    }
-
-    func lastViewController(for flowStep: FlowStep) -> UIViewController? {
-        return navigationController?.viewControllers.last { $0.flowStep == flowStep }
     }
 }

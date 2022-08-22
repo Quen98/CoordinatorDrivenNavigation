@@ -8,14 +8,16 @@
 
 import UIKit
 
+typealias StepIdentifiableControllerProvider = (flowStep: FlowStep, managedController: ManagedViewControllerProvider)
+
 public class NavigationFlowCoordinator: ManagedViewControllerProvider {
-    public var flowStep: FlowStep?
     public var associatedViewController: UIViewController?
 
     private var router: NavigationControllerRouter?
     private let dataProvider: NavigationFlowCoordinatorDataProvider
-    private var managedControllers: [ManagedViewControllerProvider] = []
+    private var managedControllers: [StepIdentifiableControllerProvider] = []
     private var completion: ((_ coordinator: NavigationFlowCoordinator) -> Swift.Void)?
+    private let isTopMainNavigationCoordinator: Bool
 
     public var currentStep: FlowStep? {
         steps.last
@@ -26,15 +28,18 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
     }
 
     init(dataProvider: NavigationFlowCoordinatorDataProvider,
-         router: NavigationControllerRouter?) {
+         router: NavigationControllerRouter?,
+         isTopMainNavigationCoordinator: Bool) {
         self.dataProvider = dataProvider
         self.router = router
+        self.isTopMainNavigationCoordinator = isTopMainNavigationCoordinator
     }
 
     convenience init(dataProvider: NavigationFlowCoordinatorDataProvider) {
         self.init(
             dataProvider: dataProvider,
-            router: nil
+            router: nil,
+            isTopMainNavigationCoordinator: false
         )
     }
 
@@ -44,7 +49,8 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
             dataProvider: dataProvider,
             router: NavigationRouter(
                 navigationController: navigationController
-            )
+            ),
+            isTopMainNavigationCoordinator: true
         )
     }
 
@@ -54,15 +60,14 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
             var viewControllerOrCoordinator = dataProvider.newViewControllerOrCoordinatorForFlowStep(step, param: param)
         else { return }
 
-        var viewControllerProvider = viewControllerOrCoordinator.managedViewControllerProvider()
+        let viewControllerProvider = viewControllerOrCoordinator.managedViewControllerProvider()
         if let coordinator = viewControllerProvider as? NavigationFlowCoordinator {
             initializeNewlyCreated(coordinator: coordinator)
         }
         if let initialViewController = viewControllerProvider.viewController() {
             router?.push(viewController: initialViewController, animated: animated)
         }
-        viewControllerProvider.flowStep = step
-        managedControllers.append(viewControllerProvider)
+        managedControllers.append((step, viewControllerProvider))
     }
 
     // MARK: Present
@@ -71,7 +76,7 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
             var viewControllerOrCoordinator = dataProvider.newViewControllerOrCoordinatorForFlowStep(step, param: param)
         else { return }
 
-        var viewControllerProvider = viewControllerOrCoordinator.managedViewControllerProvider()
+        let viewControllerProvider = viewControllerOrCoordinator.managedViewControllerProvider()
         if let coordinator = viewControllerProvider as? NavigationFlowCoordinator {
             initializeNewlyCreated(coordinator: coordinator)
         }
@@ -86,8 +91,7 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
                 self?.remove(managedControllerContaining: navigationController)
             }
         }
-        viewControllerProvider.flowStep = step
-        managedControllers.append(viewControllerProvider)
+        managedControllers.append((step, viewControllerProvider))
     }
 
     // MARK: Replace
@@ -96,7 +100,7 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
             var viewControllerOrCoordinator = dataProvider.newViewControllerOrCoordinatorForFlowStep(step, param: param)
         else { return }
 
-        var viewControllerProvider = viewControllerOrCoordinator.managedViewControllerProvider()
+        let viewControllerProvider = viewControllerOrCoordinator.managedViewControllerProvider()
         if let coordinator = viewControllerProvider as? NavigationFlowCoordinator {
             initializeNewlyCreated(coordinator: coordinator)
         }
@@ -105,9 +109,8 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
                 andShow: viewController,
                 animated: animated
             )
-            viewControllerProvider.flowStep = step
             managedControllers.removeLast()
-            managedControllers.append(viewControllerProvider)
+            managedControllers.append((step, viewControllerProvider))
             updateAssociatedViewControllerIfNeeded()
         }
     }
@@ -115,7 +118,7 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
     private func updateAssociatedViewControllerIfNeeded() {
         guard managedControllers.count == 1 else { return }
 
-        if let viewController = managedControllers.first as? UIViewController {
+        if let viewController = managedControllers.first?.managedController as? UIViewController {
             associatedViewController = viewController
         } else {
             associatedViewController = nil
@@ -145,13 +148,13 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
             var viewControllerOrCoordinator = dataProvider.newViewControllerOrCoordinatorForFlowStep(step, param: param)
         else { return }
 
-        var viewControllerProvider = viewControllerOrCoordinator.managedViewControllerProvider()
+        let viewControllerProvider = viewControllerOrCoordinator.managedViewControllerProvider()
         if let coordinator = viewControllerProvider as? NavigationFlowCoordinator {
             initializeNewlyCreated(coordinator: coordinator)
         }
 
         if let newInitialViewController = viewControllerProvider.viewController() {
-            if flowStep != nil, // In case we are the top main navigationflowcoordinator
+            if isTopMainNavigationCoordinator == false,
                let initialViewController = viewController() {
                 router?.pop(
                     toViewControllerBefore: initialViewController,
@@ -161,8 +164,7 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
             } else {
                 router?.setViewControllers([newInitialViewController], animated: animated)
             }
-            viewControllerProvider.flowStep = step
-            managedControllers = [viewControllerProvider]
+            managedControllers = [(step, viewControllerProvider)]
             updateAssociatedViewControllerIfNeeded()
         }
     }
@@ -178,15 +180,17 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
 
     // MARK: Handlers
     private func managedController(for flowStep: FlowStep) -> ManagedViewControllerProvider? {
-        managedControllers.first { $0.flowStep == flowStep }
+        managedControllers.first { $0.flowStep == flowStep }?.managedController
     }
 
     private func firstIndex(of controller: ManagedViewControllerProvider) -> Int? {
-        managedControllers.firstIndex { $0.flowStep == controller.flowStep }
+        managedControllers.firstIndex { $0.managedController === controller }
     }
 
     func remove(managedController: ManagedViewControllerProvider) {
-        guard let index = managedControllers.lastIndex(where: { $0 === managedController }) else { return }
+        guard
+            let index = managedControllers.lastIndex(where: { $0.managedController === managedController })
+        else { return }
 
         managedControllers.remove(at: index)
         if managedControllers.isEmpty {
@@ -201,11 +205,11 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
     }
 
     private func navigationFlowCoordinator(containing viewController: UIViewController) -> NavigationFlowCoordinator? {
-        if managedControllers.contains(where: { $0 === viewController }) {
+        if managedControllers.contains(where: { $0.managedController === viewController }) {
             return self
         }
         for controllerOrCoordinator in managedControllers {
-            if let controllerOrCoordinator = controllerOrCoordinator as? NavigationFlowCoordinator,
+            if let controllerOrCoordinator = controllerOrCoordinator.managedController as? NavigationFlowCoordinator,
                let coordinator = controllerOrCoordinator.navigationFlowCoordinator(containing: viewController) {
                 return coordinator
             }
@@ -226,24 +230,25 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
             param: nil
         )
 
-        guard var viewControllerProvider = viewControllerOrCoordinator?.managedViewControllerProvider() else { return }
+        guard
+            let viewControllerProvider = viewControllerOrCoordinator?.managedViewControllerProvider()
+        else { return }
 
         if let viewController = viewControllerProvider as? UIViewController {
             associatedViewController = viewController
         } else if let coordinator = viewControllerProvider as? NavigationFlowCoordinator {
             initializeNewlyCreated(coordinator: coordinator)
         }
-        viewControllerProvider.flowStep = dataProvider.initialFlowStep
-        managedControllers.append(viewControllerProvider)
+        managedControllers.append((dataProvider.initialFlowStep, viewControllerProvider))
     }
 
     public func viewController() -> UIViewController? {
         guard let firstManagedController = managedControllers.first else { return nil }
 
-        if let coordinator = firstManagedController as? NavigationFlowCoordinator {
+        if let coordinator = firstManagedController.managedController as? NavigationFlowCoordinator {
             return coordinator.viewController()
         }
-        return firstManagedController as? UIViewController
+        return firstManagedController.managedController as? UIViewController
     }
 
     // MARK: Debug
@@ -253,26 +258,25 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
         print(String(describing: self))
         print("    | DataProvider \(String(describing: dataProvider))")
         print("    | AssociatedVC \(String(describing: associatedViewController))")
-        print("    | FlowStep \(String(describing: flowStep))")
         dumpHierarchy(with: "")
         print("------------------------------")
     }
 
     func dumpHierarchy(with prefix: String) {
         managedControllers.forEach {
-            if let child = $0 as? UIViewController, child.isModal {
+            if let child = $0.managedController as? UIViewController, child.isModal {
                 print(prefix + "    ↑ \(String(describing: $0))")
             } else {
                 print(prefix + "    → \(String(describing: $0))")
             }
-            if let coordinator = $0 as? NavigationFlowCoordinator {
+            if let coordinator = $0.managedController as? NavigationFlowCoordinator {
                 print(prefix + "        | DataProvider \(String(describing: coordinator.dataProvider))")
             }
-            print(prefix + "        | AssociatedVC \(String(describing: $0.associatedViewController))")
+            print(prefix + "        | AssociatedVC \(String(describing: $0.managedController.associatedViewController))")
             print(prefix + "        | FlowStep \(String(describing: $0.flowStep))")
-            if let child = $0 as? NavigationFlowCoordinator {
+            if let child = $0.managedController as? NavigationFlowCoordinator {
                 child.dumpHierarchy(with: prefix + "    ")
-            } else if let child = $0 as? CoordinatorDrivenNavigationViewController {
+            } else if let child = $0.managedController as? CoordinatorDrivenNavigationViewController {
                 child.dumpHierarchy(with: prefix + "    ")
             }
         }

@@ -8,10 +8,6 @@
 
 import UIKit
 
-private struct Constants {
-    static let flowStepKey = "flowStep"
-}
-
 fileprivate var AssociatedObjectFlowStepKey: UInt8 = 0
 
 extension UIViewController {
@@ -38,19 +34,5 @@ extension UIViewController: ViewControllerProvider {
 extension UIViewController: UIViewControllerOrFlowCoordinator {
     public func managedViewControllerProvider() -> ManagedViewControllerProvider {
         self
-    }
-}
-
-extension UIViewController: FlowStepIdentifiable {
-    public var flowStep: FlowStep? {
-        get {
-            return objc_getAssociatedObject(self, &AssociatedObjectFlowStepKey) as? FlowStep
-        }
-        set {
-            objc_setAssociatedObject(self,
-                                     &AssociatedObjectFlowStepKey,
-                                     newValue,
-                                     .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
     }
 }
