@@ -17,14 +17,10 @@ public protocol FlowStepAdapter: Equatable {
     init?(rawValue: FlowStep)
 }
 
-public typealias ManagedViewControllerProvider = NSObject & ViewControllerProvider & FlowStepIdentifiable & DebugAssociatedViewController
+public typealias ManagedViewControllerProvider = NSObject & ViewControllerProvider & DebugAssociatedViewController
 
 public protocol UIViewControllerOrFlowCoordinator {
     mutating func managedViewControllerProvider() -> ManagedViewControllerProvider
-}
-
-public protocol FlowStepIdentifiable {
-    var flowStep: FlowStep? { get set }
 }
 
 public protocol ViewControllerProvider {
