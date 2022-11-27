@@ -175,6 +175,15 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
     }
 
     // MARK: Dismiss
+    public func dismissLast(step: FlowStep, animated: Bool = true) {
+        guard
+            let controller = lastManagedController(for: step, includeLastElement: true),
+            controller.viewController()?.isModal == true
+        else { return }
+        
+        controller.viewController()?.dismiss(animated: animated)
+    }
+
     public func dismiss(animated: Bool = true) {
         router?.dismiss(animated: animated)
     }

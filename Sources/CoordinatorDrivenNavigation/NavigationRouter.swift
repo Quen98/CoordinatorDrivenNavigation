@@ -19,6 +19,23 @@ public protocol NavigationControllerRouter {
     func setViewControllers(_ viewControllers: [UIViewController], animated: Bool)
 }
 
+private extension UIApplication {
+    class func topViewController(controller: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+        if let navigationController = controller as? UINavigationController {
+            return topViewController(controller: navigationController.visibleViewController)
+        }
+        if let tabController = controller as? UITabBarController {
+            if let selected = tabController.selectedViewController {
+                return topViewController(controller: selected)
+            }
+        }
+        if let presented = controller?.presentedViewController {
+            return topViewController(controller: presented)
+        }
+        return controller
+    }
+}
+
 // NavigationRouter is the object that actually manages navigation in the UINavigationController.
 public class NavigationRouter: NavigationControllerRouter {
     private weak var navigationController: UINavigationController?
@@ -47,7 +64,14 @@ public class NavigationRouter: NavigationControllerRouter {
     }
 
     public func present(viewController: UIViewController, animated: Bool) {
-        navigationController?.present(viewController, animated: animated)
+        guard
+            let navigationController = navigationController,
+            let topVC = UIApplication.topViewController(controller: navigationController)
+        else {
+            navigationController?.present(viewController, animated: animated)
+            return
+        }
+        topVC.present(viewController, animated: animated)
     }
 
     public func popLast(andShow nextViewController: UIViewController? = nil, animated: Bool) {

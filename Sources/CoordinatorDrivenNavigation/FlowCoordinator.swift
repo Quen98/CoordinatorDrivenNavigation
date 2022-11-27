@@ -107,4 +107,11 @@ public extension FlowCoordinator {
             animated: animated
         )
     }
+    
+    func dismissLast(step: Step, animated: Bool = true) {
+        flowCoordinator?.dismissLast(
+            step: step.rawValue,
+            animated: animated
+        )
+    }
 }
