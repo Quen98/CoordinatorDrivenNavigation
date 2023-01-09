@@ -108,10 +108,11 @@ public extension FlowCoordinator {
         )
     }
     
-    func dismissLast(step: Step, animated: Bool = true) {
+    func dismissLast(step: Step, animated: Bool = true, completion: (() -> Swift.Void)? = nil) {
         flowCoordinator?.dismissLast(
             step: step.rawValue,
-            animated: animated
+            animated: animated,
+            completion: completion
         )
     }
 }

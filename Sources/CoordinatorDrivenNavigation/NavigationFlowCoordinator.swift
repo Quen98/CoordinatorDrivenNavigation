@@ -175,13 +175,13 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
     }
 
     // MARK: Dismiss
-    public func dismissLast(step: FlowStep, animated: Bool = true) {
+    public func dismissLast(step: FlowStep, animated: Bool = true, completion: (() -> Swift.Void)?) {
         guard
             let controller = lastManagedController(for: step, includeLastElement: true),
             controller.viewController()?.isModal == true
         else { return }
-        
-        controller.viewController()?.dismiss(animated: animated)
+
+        controller.viewController()?.dismiss(animated: animated, completion: completion)
     }
 
     public func dismiss(animated: Bool = true) {
