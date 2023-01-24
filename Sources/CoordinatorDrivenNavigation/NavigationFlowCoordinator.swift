@@ -92,7 +92,9 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
            let coordinator = navigationController.flowCoordinator {
 
             // Setting a custom completion here because we need to remove the controller in the PREVIOUS coordinator
-            coordinator.completion = { [weak self] _ in
+            coordinator.completion = { [weak self, weak navigationController] _ in
+                guard let navigationController else { return }
+
                 self?.remove(managedControllerContaining: navigationController)
             }
         }
@@ -182,6 +184,7 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
         else { return }
 
         controller.viewController()?.dismiss(animated: animated, completion: completion)
+        remove(managedController: controller)
     }
 
     public func dismiss(animated: Bool = true) {

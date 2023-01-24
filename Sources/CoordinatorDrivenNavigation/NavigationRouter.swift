@@ -38,7 +38,7 @@ private extension UIApplication {
 
 // NavigationRouter is the object that actually manages navigation in the UINavigationController.
 public class NavigationRouter: NavigationControllerRouter {
-    private weak var navigationController: UINavigationController?
+    private(set) weak var navigationController: UINavigationController?
 
     var viewControllers: [UIViewController] {
         navigationController?.viewControllers ?? []
