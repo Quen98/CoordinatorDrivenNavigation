@@ -69,7 +69,8 @@ public extension FlowCoordinator {
         flowCoordinator?.dumpHierarchy()
     }
 
-    func push(step: Step, param: Any? = nil, animated: Bool = true) {
+    @discardableResult
+    func push(step: Step, param: Any? = nil, animated: Bool = true) -> UIViewControllerOrFlowCoordinator? {
         flowCoordinator?.push(
             step: step.rawValue,
             param: param,
@@ -77,7 +78,8 @@ public extension FlowCoordinator {
         )
     }
 
-    func present(step: Step, param: Any? = nil, animated: Bool = true) {
+    @discardableResult
+    func present(step: Step, param: Any? = nil, animated: Bool = true) -> UIViewControllerOrFlowCoordinator? {
         flowCoordinator?.present(
             step: step.rawValue,
             param: param,
@@ -85,7 +87,8 @@ public extension FlowCoordinator {
         )
     }
 
-    func replaceCurrentStep(with step: Step, param: Any? = nil, animated: Bool = true) {
+    @discardableResult
+    func replaceCurrentStep(with step: Step, param: Any? = nil, animated: Bool = true) -> UIViewControllerOrFlowCoordinator? {
         flowCoordinator?.replaceCurrentStep(
             with: step.rawValue,
             param: param,

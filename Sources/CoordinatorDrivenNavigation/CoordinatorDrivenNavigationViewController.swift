@@ -29,6 +29,7 @@ fileprivate extension FlowCoordinator {
 open class CoordinatorDrivenNavigationViewController: UINavigationController {
     private(set) var flowCoordinator: NavigationFlowCoordinator?
     private var dismissingViewController: UIViewController?
+    public let coordinator: any FlowCoordinator
 
     public override var delegate: UINavigationControllerDelegate? {
         get { customDelegate }
@@ -42,11 +43,14 @@ open class CoordinatorDrivenNavigationViewController: UINavigationController {
     }
 
     public init<T>(coordinator: T, navigationBarClass: AnyClass?, toolbarClass: AnyClass?) where T: FlowCoordinator {
-        super.init(navigationBarClass: navigationBarClass, toolbarClass: toolbarClass)
+        self.coordinator = coordinator
 
-        super.delegate = self
-        var coordinator = coordinator
-        flowCoordinator = coordinator.start(in: self)
+        defer {
+            super.delegate = self
+            var coordinator = coordinator
+            flowCoordinator = coordinator.start(in: self)
+        }
+        super.init(navigationBarClass: navigationBarClass, toolbarClass: toolbarClass)
     }
 
     @available(*, unavailable)

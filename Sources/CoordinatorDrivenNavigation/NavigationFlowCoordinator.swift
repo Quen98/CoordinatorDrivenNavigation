@@ -60,10 +60,11 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
     }
 
     // MARK: Push
-    public func push(step: FlowStep, param: Any?, animated: Bool = true) {
+    @discardableResult
+    public func push(step: FlowStep, param: Any?, animated: Bool = true) -> UIViewControllerOrFlowCoordinator? {
         guard
             var viewControllerOrCoordinator = dataProvider.newViewControllerOrCoordinatorForFlowStep(step, param: param)
-        else { return }
+        else { return nil }
 
         let viewControllerProvider = viewControllerOrCoordinator.managedViewControllerProvider()
         if let coordinator = viewControllerProvider as? NavigationFlowCoordinator {
@@ -73,13 +74,15 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
             router?.push(viewController: initialViewController, animated: animated)
         }
         managedControllers.append((step, viewControllerProvider))
+        return viewControllerOrCoordinator
     }
 
     // MARK: Present
-    public func present(step: FlowStep, param: Any?, animated: Bool = true) {
+    @discardableResult
+    public func present(step: FlowStep, param: Any?, animated: Bool = true) -> UIViewControllerOrFlowCoordinator? {
         guard
             var viewControllerOrCoordinator = dataProvider.newViewControllerOrCoordinatorForFlowStep(step, param: param)
-        else { return }
+        else { return nil }
 
         let viewControllerProvider = viewControllerOrCoordinator.managedViewControllerProvider()
         if let coordinator = viewControllerProvider as? NavigationFlowCoordinator {
@@ -99,13 +102,15 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
             }
         }
         managedControllers.append((step, viewControllerProvider))
+        return viewControllerOrCoordinator
     }
 
     // MARK: Replace
-    public func replaceCurrentStep(with step: FlowStep, param: Any?, animated: Bool = true) {
+    @discardableResult
+    public func replaceCurrentStep(with step: FlowStep, param: Any?, animated: Bool = true) -> UIViewControllerOrFlowCoordinator? {
         guard
             var viewControllerOrCoordinator = dataProvider.newViewControllerOrCoordinatorForFlowStep(step, param: param)
-        else { return }
+        else { return nil }
 
         let viewControllerProvider = viewControllerOrCoordinator.managedViewControllerProvider()
         if let coordinator = viewControllerProvider as? NavigationFlowCoordinator {
@@ -120,6 +125,7 @@ public class NavigationFlowCoordinator: ManagedViewControllerProvider {
             managedControllers.append((step, viewControllerProvider))
             updateAssociatedViewControllerIfNeeded()
         }
+        return viewControllerOrCoordinator
     }
 
     private func updateAssociatedViewControllerIfNeeded() {
